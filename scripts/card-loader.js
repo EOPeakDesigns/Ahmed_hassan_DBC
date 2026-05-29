@@ -36,7 +36,12 @@ class CardLoader {
     this.setAttr('[data-card="phone-link"]', 'href', contact?.phoneE164 ? `tel:${contact.phoneE164}` : null);
     this.setText('[data-card="phone-display"]', contact?.phoneDisplay);
     this.setAttr('[data-card="whatsapp-link"]', 'href', contact?.whatsapp ? `https://wa.me/${contact.whatsapp}` : null);
-    this.setAttr('[data-card="email-link"]', 'href', contact?.email ? `mailto:${contact.email}` : null);
+    if (contact?.email) {
+      const gmail = EmailLinkManager.buildComposeUrls(contact, owner, labels);
+      this.setAttr('[data-card="email-link"]', 'href', gmail.web);
+      this.setAttr('[data-card="email-link"]', 'data-gmail-web', gmail.web);
+      this.setAttr('[data-card="email-link"]', 'data-gmail-app', gmail.app);
+    }
     this.setText('[data-card="email-display"]', contact?.email);
     this.setAttr('[data-card="website-link"]', 'href', contact?.website);
     this.setText('[data-card="website-display"]', contact?.websiteDisplay);

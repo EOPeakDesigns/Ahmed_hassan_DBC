@@ -82,8 +82,7 @@ class ClipboardManager {
       
       // Use modern Clipboard API
       await navigator.clipboard.writeText(textToCopy);
-      this.announceCopied();
-      
+
       // Re-enable button after 1 second
       setTimeout(() => {
         button.disabled = false;
@@ -97,7 +96,6 @@ class ClipboardManager {
       const success = this.fallbackCopyToClipboard(textToCopy);
       
       if (success) {
-        this.announceCopied();
         button.disabled = true;
         button.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i>';
         
@@ -106,7 +104,6 @@ class ClipboardManager {
           button.innerHTML = originalText;
         }, 1000);
       } else {
-        this.announceCopyFailed();
         button.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i>';
         
         setTimeout(() => {
@@ -189,16 +186,6 @@ class ClipboardManager {
   reinitialize() {
     this.copyElements = document.querySelectorAll('[data-copy]');
     this.bindEvents();
-  }
-
-  announceCopied() {
-    const message = this.cardLoader?.getData()?.labels?.copied || 'Copied to clipboard';
-    if (window.showToast) window.showToast(message);
-  }
-
-  announceCopyFailed() {
-    const message = this.cardLoader?.getData()?.labels?.copyFailed || 'Could not copy';
-    if (window.showToast) window.showToast(message);
   }
 }
 

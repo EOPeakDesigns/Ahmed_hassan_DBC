@@ -28,6 +28,7 @@ class TourGuideApp {
       this.modules.socialInteractions = new SocialInteractions();
       this.modules.vcardManager = new VCardManager(this.cardLoader);
       this.modules.shareManager = new ShareManager(this.cardLoader);
+      this.modules.emailLinkManager = new EmailLinkManager(this.cardLoader);
       this.modules.pwaManager = new PwaManager(this.cardLoader);
 
       this.isInitialized = true;

@@ -11,6 +11,8 @@
     "phoneDisplay": "+20 10123 53412",
     "phoneE164": "+201012353412",
     "email": "Ahassan@gmail.com",
+    "emailSubject": "Tour inquiry — Ahmed Hassan",
+    "emailBody": "Hello Ahmed,\n\nI would like to inquire about a private tour.\n\n",
     "website": "https://www.ahassan.com",
     "websiteDisplay": "WWW.Ahassan.com",
     "whatsapp": "201012353412"
@@ -91,6 +93,7 @@
     "shareSuccess": "Card shared successfully",
     "shareCopied": "Card details copied — paste to share",
     "sharePrompt": "View my digital business card:",
+    "emailAria": "Email Ahmed Hassan in Gmail",
     "videoAvatarHint": "Experience Egypt With Me",
     "videoAvatarAria": "Play Ahmed Hassan's guide introduction video",
     "videoEyebrow": "Personal Invitation",

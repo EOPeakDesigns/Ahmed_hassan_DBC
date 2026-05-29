@@ -2,7 +2,7 @@
  * Service Worker — Tour Guide Digital Business Card
  * Bump CACHE_VERSION when static assets change.
  */
-const CACHE_VERSION = 'dbc-gm-v18';
+const CACHE_VERSION = 'dbc-gm-v20';
 const CACHE_NAME = `tour-guide-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -24,6 +24,7 @@ const PRECACHE_URLS = [
   '/scripts/social-interactions.js',
   '/scripts/vcard-manager.js',
   '/scripts/share-manager.js',
+  '/scripts/email-link-manager.js',
   '/scripts/pwa-manager.js',
   '/scripts/app.js',
   '/assets/favicon.svg',
