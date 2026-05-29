@@ -3,24 +3,42 @@
    ======================================== */
 
 @media (max-width: 768px) {
+  /* Native page scroll — nested overflow breaks on iOS/Android browsers */
+  html {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   body {
+    display: block;
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+    height: auto;
     padding: max(var(--space-3), env(safe-area-inset-top))
       max(var(--space-3), env(safe-area-inset-right))
       max(var(--space-3), env(safe-area-inset-bottom))
       max(var(--space-3), env(safe-area-inset-left));
-    align-items: stretch;
   }
 
   .card-container {
     max-width: 100%;
     width: 100%;
+    margin: 0 auto;
   }
 
   .business-card {
-    min-height: 100dvh;
-    min-height: -webkit-fill-available;
+    min-height: auto;
     max-height: none;
+    overflow: visible;
     border-radius: var(--radius-md);
+  }
+
+  .card-body,
+  .info-panel {
+    flex: none;
+    overflow: visible;
+    -webkit-overflow-scrolling: auto;
   }
 
   .hero {

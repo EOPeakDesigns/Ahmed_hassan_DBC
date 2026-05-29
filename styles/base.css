@@ -35,11 +35,15 @@ body {
   padding-bottom: max(var(--space-4), env(safe-area-inset-bottom));
   padding-left: max(var(--space-4), env(safe-area-inset-left));
   overflow-x: hidden;
-  overscroll-behavior-y: none;
 }
 
-body.modal-open {
-  overscroll-behavior: none;
+/* Lock background only while a modal is open */
+html.scroll-locked {
+  overflow: hidden;
+}
+
+html.scroll-locked body {
+  overflow: hidden;
 }
 
 .skip-link {

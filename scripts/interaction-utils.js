@@ -4,27 +4,48 @@
 
 const InteractionUtils = {
   _scrollY: 0,
+  _lockCount: 0,
+
+  prefersLightweightScrollLock() {
+    return window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
+  },
 
   lockScroll() {
     this._scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    this._lockCount += 1;
+
+    document.documentElement.classList.add('scroll-locked');
     document.body.classList.add('modal-open');
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${this._scrollY}px`;
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
-    document.documentElement.style.overflow = 'hidden';
+
+    if (!this.prefersLightweightScrollLock()) {
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${this._scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+    }
   },
 
   unlockScroll() {
+    if (this._lockCount > 0) {
+      this._lockCount -= 1;
+    }
+    if (this._lockCount > 0) return;
+
+    document.documentElement.classList.remove('scroll-locked');
     document.body.classList.remove('modal-open');
     document.body.style.position = '';
     document.body.style.top = '';
     document.body.style.left = '';
     document.body.style.right = '';
     document.body.style.width = '';
-    document.documentElement.style.overflow = '';
+
     window.scrollTo(0, this._scrollY);
+  },
+
+  forceUnlock() {
+    this._lockCount = 0;
+    this.unlockScroll();
   },
 
   trackPointerType(event) {
@@ -71,6 +92,15 @@ const InteractionUtils = {
 
 if (typeof window !== 'undefined') {
   window.InteractionUtils = InteractionUtils;
+
+  window.addEventListener('pageshow', () => {
+    if (
+      document.documentElement.classList.contains('scroll-locked') &&
+      !document.querySelector('.video-modal-overlay.active, .qr-modal-overlay.active')
+    ) {
+      InteractionUtils.forceUnlock();
+    }
+  });
 }
 
 if (typeof module !== 'undefined' && module.exports) {

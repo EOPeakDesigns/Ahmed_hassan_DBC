@@ -2,7 +2,7 @@
  * Service Worker — Tour Guide Digital Business Card
  * Bump CACHE_VERSION when static assets change.
  */
-const CACHE_VERSION = 'dbc-gm-v20';
+const CACHE_VERSION = 'dbc-gm-v21';
 const CACHE_NAME = `tour-guide-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
