@@ -1,16 +1,12 @@
 /**
- * EmailLinkManager — opens Gmail app compose on mobile, Gmail web on desktop
- *
- * Mobile: native <a href> deep link only (no preventDefault — required for OS handoff)
- * Android: SENDTO intent → com.google.android.gm (no browser fallback URL)
- * iOS: googlegmail:///co?… with encoded query params
+ * EmailLinkManager — opens Gmail compose (native app on mobile, web on desktop)
  */
 
 class EmailLinkManager {
   constructor(cardLoader) {
     this.cardLoader = cardLoader;
     this.emailLink = null;
-    this.boundDesktopClick = (event) => this.handleDesktopClick(event);
+    this.boundClick = (event) => this.handleClick(event);
     this.init();
   }
 
@@ -18,13 +14,8 @@ class EmailLinkManager {
     this.emailLink = document.querySelector('[data-card="email-link"]');
     if (!this.emailLink) return;
 
+    this.emailLink.addEventListener('click', this.boundClick);
     this.applyLinkFromData();
-
-    if (EmailLinkManager.getPlatform() === 'desktop') {
-      this.emailLink.addEventListener('click', this.boundDesktopClick);
-    } else {
-      this.emailLink.removeEventListener('click', this.boundDesktopClick);
-    }
   }
 
   static getPlatform() {
@@ -34,95 +25,32 @@ class EmailLinkManager {
     return 'desktop';
   }
 
-  /**
-   * Build all compose URLs for the current contact
-   */
-  static buildComposeUrls(contact, owner, labels) {
-    const to = (contact?.email || '').trim();
-    const subject = (contact?.emailSubject || labels?.emailSubject || '').trim();
-    const body = (contact?.emailBody || labels?.emailBody || '').trim();
-
-    const mailto = EmailLinkManager.buildMailtoUri(to, subject, body);
-
-    const webParams = new URLSearchParams({ view: 'cm', fs: '1', to });
-    if (subject) webParams.set('su', subject);
-    if (body) webParams.set('body', body);
-    const web = `https://mail.google.com/mail/?${webParams.toString()}`;
-
-    const ios = EmailLinkManager.buildIosGmailUrl(to, subject, body);
-    const android = EmailLinkManager.buildAndroidGmailIntent(mailto);
-    const androidAlt = EmailLinkManager.buildAndroidGmailSchemeUrl(to, subject, body);
-
-    return { web, mailto, ios, android, androidAlt };
-  }
-
-  static buildMailtoUri(to, subject, body) {
-    const query = new URLSearchParams();
-    if (subject) query.set('subject', subject);
-    if (body) query.set('body', body);
-    const qs = query.toString();
-    return qs ? `mailto:${to}?${qs}` : `mailto:${to}`;
-  }
-
-  /** iOS Gmail — encode each query value (required by Gmail URL scheme) */
-  static buildIosGmailUrl(to, subject, body) {
-    const parts = [`to=${encodeURIComponent(to)}`];
-    if (subject) parts.push(`subject=${encodeURIComponent(subject)}`);
-    if (body) parts.push(`body=${encodeURIComponent(body)}`);
-    return `googlegmail:///co?${parts.join('&')}`;
-  }
-
-  /**
-   * Android Chrome — explicit SENDTO + mailto + Gmail package
-   * Do NOT set S.browser_fallback_url (that forces Gmail website in browser)
-   */
-  static buildAndroidGmailIntent(mailtoUri) {
-    const data = encodeURI(mailtoUri);
-    return (
-      `intent://send/#Intent;action=android.intent.action.SENDTO;data=${data};` +
-      'package=com.google.android.gm;end'
-    );
-  }
-
-  /** Android fallback scheme if SENDTO intent is blocked */
-  static buildAndroidGmailSchemeUrl(to, subject, body) {
-    const parts = [`to=${encodeURIComponent(to)}`];
-    if (subject) parts.push(`subject=${encodeURIComponent(subject)}`);
-    if (body) parts.push(`body=${encodeURIComponent(body)}`);
-    return `googlegmail://co?${parts.join('&')}`;
-  }
-
-  static getMobileHref(urls) {
-    const platform = EmailLinkManager.getPlatform();
-    if (platform === 'android') return urls.android;
-    if (platform === 'ios') return urls.ios;
-    return urls.web;
+  static isMobilePlatform() {
+    return EmailLinkManager.getPlatform() !== 'desktop';
   }
 
   applyLinkFromData() {
     const data = this.cardLoader?.getData();
     if (!data?.contact?.email || !this.emailLink) return;
 
-    const urls = EmailLinkManager.buildComposeUrls(
-      data.contact,
-      data.owner,
-      data.labels
-    );
+    const urls = this.buildComposeUrls(data);
     const platform = EmailLinkManager.getPlatform();
 
     this.emailLink.setAttribute('data-gmail-web', urls.web);
-    this.emailLink.setAttribute('data-gmail-mailto', urls.mailto);
     this.emailLink.setAttribute('data-gmail-ios', urls.ios);
     this.emailLink.setAttribute('data-gmail-android', urls.android);
+    this.emailLink.setAttribute('data-mailto', urls.mailto);
 
-    if (platform === 'desktop') {
+    if (platform === 'android') {
+      this.emailLink.href = urls.android;
+      this.emailLink.removeAttribute('target');
+    } else if (platform === 'ios') {
+      this.emailLink.href = urls.mailto;
+      this.emailLink.removeAttribute('target');
+    } else {
       this.emailLink.href = urls.web;
       this.emailLink.setAttribute('target', '_blank');
       this.emailLink.setAttribute('rel', 'noopener noreferrer');
-    } else {
-      this.emailLink.href = EmailLinkManager.getMobileHref(urls);
-      this.emailLink.removeAttribute('target');
-      this.emailLink.removeAttribute('rel');
     }
 
     const label =
@@ -132,17 +60,99 @@ class EmailLinkManager {
     this.emailLink.setAttribute('title', label);
   }
 
-  handleDesktopClick(event) {
-    const data = this.cardLoader?.getData();
-    if (!data?.contact?.email) return;
+  static buildComposeUrls(contact, owner, labels) {
+    const to = (contact?.email || '').trim();
+    const subject = (contact?.emailSubject || labels?.emailSubject || '').trim();
+    const body = (contact?.emailBody || labels?.emailBody || '').trim();
 
-    event.preventDefault();
-    const urls = EmailLinkManager.buildComposeUrls(
+    const webParams = new URLSearchParams({ view: 'cm', fs: '1', to });
+    if (subject) webParams.set('su', subject);
+    if (body) webParams.set('body', body);
+    const web = `https://mail.google.com/mail/?${webParams.toString()}`;
+
+    const appParams = new URLSearchParams({ to });
+    if (subject) appParams.set('subject', subject);
+    if (body) appParams.set('body', body);
+    const appQuery = appParams.toString();
+    const mailto = EmailLinkManager.buildMailtoUrl(to, subject, body);
+
+    const ios = `googlegmail:///co?${appQuery}`;
+    const iosAlt = `googlegmail://co?${appQuery}`;
+    const android = EmailLinkManager.buildAndroidIntentUrl(mailto);
+
+    return { web, ios, iosAlt, android, mailto, app: iosAlt };
+  }
+
+  static buildAndroidIntentUrl(mailtoUrl) {
+    const payload = mailtoUrl.replace(/^mailto:/i, '');
+    const fallback = encodeURIComponent(mailtoUrl);
+    return `intent:mailto:${payload}#Intent;action=android.intent.action.SENDTO;package=com.google.android.gm;S.browser_fallback_url=${fallback};end`;
+  }
+
+  static buildMailtoUrl(to, subject, body) {
+    const params = new URLSearchParams();
+    if (subject) params.set('subject', subject);
+    if (body) params.set('body', body);
+    const qs = params.toString();
+    return `mailto:${encodeURIComponent(to)}${qs ? `?${qs}` : ''}`;
+  }
+
+  buildComposeUrls(data) {
+    return EmailLinkManager.buildComposeUrls(
       data.contact,
       data.owner,
       data.labels
     );
-    window.open(urls.web, '_blank', 'noopener,noreferrer');
+  }
+
+  handleClick(event) {
+    const data = this.cardLoader?.getData();
+    const email = data?.contact?.email?.trim();
+    if (!email) return;
+
+    const urls = this.buildComposeUrls(data);
+    const platform = EmailLinkManager.getPlatform();
+
+    if (platform === 'desktop') {
+      event.preventDefault();
+      window.open(urls.web, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    /* Mobile: same-tab deep link — target="_blank" blocks Gmail app on many browsers */
+    event.preventDefault();
+
+    if (platform === 'android') {
+      window.location.href = urls.android;
+      return;
+    }
+
+    this.openIosGmail(urls.ios, urls.iosAlt, urls.mailto);
+  }
+
+  openIosGmail(primaryUrl, secondaryUrl, mailtoUrl) {
+    let didLeave = false;
+
+    const markLeave = () => {
+      didLeave = true;
+    };
+
+    window.addEventListener('pagehide', markLeave, { once: true });
+    window.addEventListener('blur', markLeave, { once: true });
+
+    window.location.href = primaryUrl;
+
+    window.setTimeout(() => {
+      if (!didLeave) {
+        window.location.href = secondaryUrl;
+      }
+    }, 450);
+
+    window.setTimeout(() => {
+      if (!didLeave) {
+        window.location.href = mailtoUrl;
+      }
+    }, 1200);
   }
 
   reconfigure() {
