@@ -39,23 +39,16 @@ class CardLoader {
     if (contact?.email && typeof EmailLinkManager !== 'undefined') {
       const gmail = EmailLinkManager.buildComposeUrls(contact, owner, labels);
       const platform = EmailLinkManager.getPlatform();
-      const href =
-        platform === 'android'
-          ? gmail.android
-          : platform === 'ios'
-            ? gmail.ios
-            : gmail.web;
       const link = document.querySelector('[data-card="email-link"]');
       if (link) {
-        link.href = href;
-        link.dataset.gmailWeb = gmail.web;
-        link.dataset.gmailIos = gmail.ios;
-        link.dataset.gmailAndroid = gmail.android;
         if (platform === 'desktop') {
+          link.href = gmail.web;
           link.setAttribute('target', '_blank');
           link.setAttribute('rel', 'noopener noreferrer');
         } else {
+          link.href = EmailLinkManager.getMobileHref(gmail);
           link.removeAttribute('target');
+          link.removeAttribute('rel');
         }
       }
     }
