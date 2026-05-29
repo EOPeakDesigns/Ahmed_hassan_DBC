@@ -1,0 +1,101 @@
+{
+  "owner": {
+    "name": "AHMED HASSAN",
+    "title": "TOUR GUIDE",
+    "image": "/assets/owner.png",
+    "imageAlt": "Ahmed Hassan - Professional Tour Guide",
+    "imagePosition": "center 38%",
+    "imageScale": 0.94
+  },
+  "contact": {
+    "phoneDisplay": "+20 10123 53412",
+    "phoneE164": "+201012353412",
+    "email": "Ahassan@gmail.com",
+    "website": "https://www.ahassan.com",
+    "websiteDisplay": "WWW.Ahassan.com",
+    "whatsapp": "201012353412"
+  },
+  "social": [
+    {
+      "platform": "facebook",
+      "url": "https://www.facebook.com/ahmedhassan.tourguide",
+      "label": "Visit Ahmed Hassan's Facebook page"
+    },
+    {
+      "platform": "instagram",
+      "url": "https://www.instagram.com/ahmedhassan.tourguide",
+      "label": "Visit Ahmed Hassan's Instagram profile"
+    },
+    {
+      "platform": "linkedin",
+      "url": "https://www.linkedin.com/in/ahmedhassan-tourguide",
+      "label": "Visit Ahmed Hassan's LinkedIn profile"
+    },
+    {
+      "platform": "x",
+      "url": "https://x.com/ahmedhassan_tours",
+      "label": "Visit Ahmed Hassan's X profile"
+    }
+  ],
+  "slogan": "Book Your Adventure Today",
+  "showcaseVideo": {
+    "enabled": true,
+    "type": "embed",
+    "videoId": "2Ri8f-wqonE",
+    "embedUrl": "https://www.youtube.com/embed/2Ri8f-wqonE?playsinline=1&rel=0&modestbranding=1",
+    "src": "",
+    "poster": "/assets/owner.png",
+    "labels": {
+      "avatarHint": "Experience Egypt With Me",
+      "avatarAria": "Play Ahmed Hassan's guide introduction video",
+      "eyebrow": "Personal Invitation",
+      "title": "Walk the Nile & Ancient Wonders",
+      "caption": "A glimpse into how I craft private journeys across Egypt's timeless landscapes."
+    }
+  },
+  "qr": {
+    "image": "/assets/MYQR.png",
+    "alt": "QR Code for Ahmed Hassan's contact information",
+    "downloadName": "ahmed-hassan-qr-code.png"
+  },
+  "deployment": {
+    "siteUrl": "",
+    "_comment": "After first Vercel deploy, set siteUrl to your live URL (no trailing slash), e.g. https://ahmed-hassan-tour.vercel.app — used for share links, Open Graph, and sitemap."
+  },
+  "share": {
+    "title": "Ahmed Hassan — Tour Guide",
+    "text": "AHMED HASSAN — TOUR GUIDE\nPhone: +20 10123 53412\nEmail: AHassan@gmail.com\nView my digital business card:",
+    "url": ""
+  },
+  "meta": {
+    "title": "Ahmed Hassan - Tour Guide",
+    "description": "Ahmed Hassan - Professional Tour Guide. Contact for guided tours and travel experiences.",
+    "keywords": "tour guide, Egypt, travel, guided tours, Ahmed Hassan",
+    "author": "Ahmed Hassan",
+    "themeColor": "#C89B5B",
+    "canonical": "",
+    "ogImage": "/assets/owner.png"
+  },
+  "labels": {
+    "saveContact": "Save Contact",
+    "shareCard": "Share Card",
+    "installApp": "Add to Home Screen",
+    "installDismiss": "Not now",
+    "qrTitle": "My QR Code",
+    "downloadQr": "Download QR Code",
+    "downloading": "Downloading...",
+    "copied": "Copied to clipboard",
+    "copyFailed": "Could not copy",
+    "contactSaved": "Contact file ready to save",
+    "shareFailed": "Sharing is not available on this device",
+    "shareSuccess": "Card shared successfully",
+    "shareCopied": "Card details copied — paste to share",
+    "sharePrompt": "View my digital business card:",
+    "videoAvatarHint": "Experience Egypt With Me",
+    "videoAvatarAria": "Play Ahmed Hassan's guide introduction video",
+    "videoEyebrow": "Personal Invitation",
+    "videoTitle": "Walk the Nile & Ancient Wonders",
+    "videoCaption": "A glimpse into how I craft private journeys across Egypt's timeless landscapes.",
+    "videoClose": "Close video"
+  }
+}

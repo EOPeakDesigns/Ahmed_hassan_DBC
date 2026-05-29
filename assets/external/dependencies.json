@@ -1,0 +1,61 @@
+{
+  "css": [
+    {
+      "name": "Font Awesome",
+      "version": "6.4.2",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css",
+      "integrity": "sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==",
+      "crossorigin": "anonymous",
+      "referrerpolicy": "no-referrer"
+    },
+    {
+      "name": "Google Fonts - Cinzel",
+      "version": "latest",
+      "url": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap",
+      "fallback": "serif"
+    }
+  ],
+  "images": [
+    {
+      "name": "Profile Image",
+      "url": "https://images.unsplash.com/photo-1604419290884-45cb8b67c2ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NjkwMjR8MHwxfHNlYXJjaHw0OHx8QWhtZWQlMjBIYXNzYW58ZW58MHx8fHwxNzU5NzQ2ODUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "Ahmed Hassan - Professional Tour Guide",
+      "type": "profile"
+    },
+    {
+      "name": "QR Code",
+      "url": "https://images.unsplash.com/photo-1595079834934-b78552e04b10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NjkwMjR8MHwxfHNlYXJjaHwyMXx8UVIlMjBDb2RlfGVufDB8fHx8MTc1OTc0MjkwNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "alt": "QR Code for Ahmed Hassan's contact information",
+      "type": "qr-code"
+    },
+    {
+      "name": "Background Texture",
+      "url": "assets/images/background.png",
+      "alt": "Ancient Egyptian texture background",
+      "type": "background",
+      "status": "local",
+      "optimized": true
+    }
+  ],
+  "localAssets": [
+    {
+      "name": "background.png",
+      "size": "3408132 bytes",
+      "status": "active",
+      "location": "assets/images/background.png",
+      "recommendation": "Optimized for business card background"
+    },
+    {
+      "name": "ChatGPT Image 6 أكتوبر 2025، 01_05_04 م.png",
+      "size": "3408132 bytes",
+      "status": "unused",
+      "recommendation": "Remove if not needed"
+    },
+    {
+      "name": "ChatGPT Image 6 أكتوبر 2025، 12_52_52 م.png",
+      "size": "3432868 bytes",
+      "status": "unused",
+      "recommendation": "Remove if not needed"
+    }
+  ]
+}

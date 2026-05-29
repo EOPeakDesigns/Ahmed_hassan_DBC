@@ -1,0 +1,94 @@
+/* ========================================
+   ANIMATIONS — CINEMATIC MICRO-INTERACTIONS
+   ======================================== */
+
+@keyframes cardReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateX(-50%) translateZ(0) scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: translateX(-50%) translateZ(0) scale(1.03);
+  }
+}
+
+@keyframes sloganShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes installSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes checkmarkPulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.copy-btn .fa-check {
+  animation: checkmarkPulse 0.5s var(--ease-luxury);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .card-container {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .slogan-shimmer {
+    animation: none;
+    display: none;
+  }
+
+  .slogan-banner:hover,
+  .adventure-slogan:hover {
+    transform: none;
+  }
+
+  .hero__glow {
+    animation: none;
+  }
+}

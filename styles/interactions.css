@@ -1,0 +1,161 @@
+/* ========================================
+   POINTER / HOVER — no sticky touch hover
+   ======================================== */
+
+.btn,
+.social-icon,
+.qr-icon,
+.modal-close {
+  touch-action: manipulation;
+}
+
+.btn:focus:not(:focus-visible),
+.social-icon:focus:not(:focus-visible),
+.qr-icon:focus:not(:focus-visible) {
+  outline: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn--gold:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--pharaoh-inset-highlight), var(--pharaoh-shadow-hover);
+    border-color: var(--antique-gold);
+  }
+
+  .btn--gold:hover::before {
+    opacity: 1;
+  }
+
+  .btn--outline:hover {
+    background: linear-gradient(180deg, #fff8eb 0%, var(--papyrus-cream) 100%);
+    border-color: var(--pharaoh-border-strong);
+    transform: translateY(-2px);
+    box-shadow: var(--pharaoh-shadow-hover);
+  }
+
+  .btn--nile:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--pharaoh-shadow-hover);
+  }
+
+  .btn--whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35), 0 0 8px var(--antique-gold-soft);
+  }
+
+  .btn--ghost:hover {
+    background: rgba(244, 231, 197, 0.85);
+    border-color: var(--pharaoh-border);
+  }
+
+  .contact-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--shadow-soft);
+  }
+
+  .contact-card__wa:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--pharaoh-inset-highlight), var(--pharaoh-shadow-hover), 0 4px 14px rgba(37, 211, 102, 0.3);
+  }
+
+  .copy-btn:hover,
+  .contact-card__copy:hover {
+    background: linear-gradient(180deg, var(--pharaoh-gold-light) 0%, var(--antique-gold) 100%);
+    color: var(--pharaoh-brown-deep);
+    border-color: var(--pharaoh-border-strong);
+    transform: translateY(-2px);
+    box-shadow: var(--pharaoh-shadow-hover);
+  }
+
+  .slogan-banner:hover,
+  .adventure-slogan:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--pharaoh-inset-highlight), var(--pharaoh-shadow-hover);
+  }
+
+  .social-icon:hover {
+    background: linear-gradient(180deg, var(--pharaoh-brown) 0%, var(--nile-blue) 100%);
+    color: var(--antique-gold);
+    border-color: var(--pharaoh-border-strong);
+    transform: translateY(-3px);
+    box-shadow: var(--pharaoh-shadow-hover);
+  }
+
+  .qr-icon:hover {
+    color: var(--papyrus-cream);
+  }
+
+  .modal-close:hover {
+    background: linear-gradient(180deg, var(--pharaoh-brown) 0%, var(--nile-blue) 100%);
+    color: var(--antique-gold);
+    border-color: var(--pharaoh-border-strong);
+    box-shadow: var(--pharaoh-shadow-hover);
+  }
+}
+
+/* Press feedback — pointer down only, never sticky */
+.social-icon.is-pressed,
+.qr-icon.is-pressed {
+  background: linear-gradient(180deg, var(--pharaoh-brown) 0%, var(--nile-blue) 100%);
+  color: var(--antique-gold);
+  border-color: var(--pharaoh-border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--pharaoh-shadow-hover);
+}
+
+.qr-icon.is-pressed {
+  color: var(--papyrus-cream);
+}
+
+.actions-grid .btn.is-pressed {
+  transform: translateY(1px) scale(0.99);
+  box-shadow: var(--pharaoh-inset-depth), 0 2px 6px var(--shadow-soft);
+}
+
+.actions-grid .btn--gold.is-pressed::before {
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .avatar-trigger:hover .avatar-play,
+  .avatar-trigger:focus-visible .avatar-play {
+    transform: translateZ(0) scale(1.06);
+    opacity: 1;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .actions-grid .btn:hover,
+  .actions-grid .btn--gold:hover,
+  .actions-grid .btn--outline:hover,
+  .actions-grid .btn--gold:hover::before {
+    transform: none;
+    box-shadow: var(--pharaoh-shadow);
+    border-color: var(--pharaoh-border);
+  }
+
+  .actions-grid .btn--gold:hover {
+    box-shadow: var(--pharaoh-inset-highlight), var(--pharaoh-inset-depth), var(--pharaoh-shadow);
+    border-color: var(--pharaoh-border-strong);
+  }
+
+  .actions-grid .btn--gold:hover::before {
+    opacity: 0;
+  }
+
+  .actions-grid .btn--outline:hover {
+    background: linear-gradient(
+      180deg,
+      #faf3e0 0%,
+      var(--papyrus-cream) 45%,
+      #e5d4ad 100%
+    );
+    border-color: rgba(200, 155, 91, 0.65);
+  }
+
+  .qr-icon:hover {
+    color: var(--antique-gold);
+    transform: none;
+    box-shadow: var(--pharaoh-inset-highlight), var(--pharaoh-shadow);
+  }
+}

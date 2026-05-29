@@ -1,0 +1,138 @@
+/* ========================================
+   RESPONSIVE — MOBILE-FIRST REFINEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+  body {
+    padding: max(var(--space-3), env(safe-area-inset-top))
+      max(var(--space-3), env(safe-area-inset-right))
+      max(var(--space-3), env(safe-area-inset-bottom))
+      max(var(--space-3), env(safe-area-inset-left));
+    align-items: stretch;
+  }
+
+  .card-container {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .business-card {
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+    max-height: none;
+    border-radius: var(--radius-md);
+  }
+
+  .hero {
+    padding-top: max(var(--space-6), env(safe-area-inset-top));
+  }
+
+  .install-banner {
+    max-width: min(280px, calc(100vw - var(--space-4) * 2));
+  }
+
+  .contact-card:hover {
+    transform: none;
+  }
+
+  .slogan-banner:hover,
+  .adventure-slogan:hover {
+    transform: none;
+  }
+
+  .btn--gold:hover,
+  .btn--outline:hover,
+  .btn--nile:hover,
+  .copy-btn:hover,
+  .contact-card__copy:hover,
+  .contact-card__wa:hover {
+    transform: none;
+  }
+
+  .social-icon:hover,
+  .social-icon.is-pressed {
+    transform: none;
+  }
+
+  .video-modal,
+  .video-modal-content {
+    width: min(94vw, 420px);
+    max-height: min(90dvh, 90vh);
+    overflow-y: auto;
+  }
+
+  .video-embed {
+    min-height: 180px;
+  }
+}
+
+@media (max-width: 380px) {
+  .avatar-play {
+    width: 34px;
+    height: 34px;
+    font-size: 0.7rem;
+    right: -4px;
+    bottom: -4px;
+  }
+
+  .video-modal,
+  .video-modal-content {
+    padding: var(--space-5) var(--space-4) var(--space-4);
+  }
+
+  .video-modal__title {
+    font-size: var(--text-base);
+  }
+
+  .hero {
+    padding: var(--space-6) var(--space-4) var(--space-5);
+  }
+
+  .card-body,
+  .info-panel {
+    padding: var(--space-5) var(--space-3) var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .actions-grid {
+    gap: var(--space-2);
+  }
+
+  .actions-grid .btn {
+    padding: 10px 12px;
+    font-size: var(--text-xs);
+  }
+
+  .actions-grid .btn {
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 8px;
+  }
+
+  .install-banner {
+    max-width: min(260px, calc(100vw - var(--space-5)));
+    padding: var(--space-3);
+  }
+
+  .contact-card__value {
+    font-size: var(--text-xs);
+  }
+}
+
+@media (min-width: 768px) {
+  body {
+    align-items: center;
+  }
+
+  .business-card {
+    min-height: 880px;
+    max-height: none;
+  }
+}
+
+@media (min-height: 800px) {
+  .card-body,
+  .info-panel {
+    gap: var(--space-6);
+  }
+}

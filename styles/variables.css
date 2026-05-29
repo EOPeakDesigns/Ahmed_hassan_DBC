@@ -1,0 +1,112 @@
+/* ========================================
+   LUXURY EGYPTIAN TOURISM — DESIGN TOKENS
+   ======================================== */
+
+:root {
+  /* Strict brand palette */
+  --sandstone: #C89B5B;
+  --sandstone-light: #d4ad78;
+  --pharaoh-brown: #5C3A21;
+  --pharaoh-brown-deep: #3d2615;
+  --antique-gold: #D4AF37;
+  --antique-gold-soft: rgba(212, 175, 55, 0.35);
+  --papyrus-cream: #F4E7C5;
+  --papyrus-cream-soft: rgba(244, 231, 197, 0.92);
+  --nile-blue: #1F4E5F;
+  --nile-blue-soft: rgba(31, 78, 95, 0.12);
+  --luxury-overlay: rgba(40, 25, 10, 0.55);
+  --shadow-soft: rgba(60, 30, 10, 0.18);
+  --shadow-deep: rgba(40, 25, 10, 0.32);
+  --white: #ffffff;
+  --text-primary: #2a1810;
+  --text-secondary: #5c3a21;
+  --text-on-dark: #f4e7c5;
+  --whatsapp: #25d366;
+
+  /* Legacy aliases for scripts compatibility */
+  --dark-brown: var(--pharaoh-brown);
+  --ochre: var(--sandstone);
+  --muted-black: var(--text-primary);
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', 'Cinzel', Georgia, serif;
+  --font-serif: 'Cinzel', Georgia, serif;
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-family: var(--font-serif);
+
+  /* Fluid scale */
+  --text-xs: clamp(0.68rem, 0.62rem + 0.28vw, 0.75rem);
+  --text-sm: clamp(0.78rem, 0.72rem + 0.32vw, 0.88rem);
+  --text-base: clamp(0.88rem, 0.82rem + 0.35vw, 1rem);
+  --text-lg: clamp(1.05rem, 0.95rem + 0.5vw, 1.25rem);
+  --text-xl: clamp(1.35rem, 1.1rem + 1.1vw, 1.85rem);
+  --text-2xl: clamp(1.65rem, 1.35rem + 1.4vw, 2.35rem);
+
+  /* Layout */
+  --card-max-width: 440px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+  --border-radius: var(--radius-lg);
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --spacing-xs: var(--space-2);
+  --spacing-sm: var(--space-3);
+  --spacing-md: var(--space-4);
+  --spacing-lg: var(--space-5);
+  --spacing-xl: var(--space-6);
+  --spacing-xxl: var(--space-7);
+
+  /* Components */
+  --profile-img-size: clamp(112px, 29vw, 136px);
+  --avatar-border-width: 3px;
+  --avatar-face-position: center 38%;
+  --avatar-face-scale: 0.94;
+  --social-icon-size: 40px;
+  --social-icon-size-mobile: 40px;
+
+  /* Glass & surfaces */
+  --glass-bg: rgba(244, 231, 197, 0.78);
+  --glass-bg-strong: rgba(244, 231, 197, 0.92);
+  --glass-border: rgba(212, 175, 55, 0.45);
+  --glass-blur: 16px;
+  --panel-background: var(--glass-bg);
+  --panel-border: 1px solid var(--glass-border);
+  --panel-backdrop-blur: var(--glass-blur);
+  --panel-border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+
+  /* Pharaoh button system */
+  --pharaoh-gold-light: #e8cc6a;
+  --pharaoh-gold-mid: var(--antique-gold);
+  --pharaoh-gold-dark: #a88428;
+  --pharaoh-border: rgba(212, 175, 55, 0.55);
+  --pharaoh-border-strong: rgba(212, 175, 55, 0.85);
+  --pharaoh-inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+  --pharaoh-inset-depth: inset 0 -2px 4px rgba(40, 25, 10, 0.22);
+  --pharaoh-shadow: 0 4px 14px var(--shadow-soft), 0 0 0 1px rgba(92, 58, 33, 0.12);
+  --pharaoh-shadow-hover: 0 8px 22px rgba(60, 30, 10, 0.24), 0 0 12px var(--antique-gold-soft);
+  --pharaoh-radius-btn: 12px;
+
+  /* Motion */
+  --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition: 0.35s var(--ease-luxury);
+  --transition-fast: 0.2s var(--ease-luxury);
+
+  /* Z-index */
+  --z-background: 0;
+  --z-overlay: 1;
+  --z-hero: 2;
+  --z-content: 3;
+  --z-modal: 100;
+  --z-toast: 110;
+  --z-install: 90;
+  --z-tooltip: 10;
+}

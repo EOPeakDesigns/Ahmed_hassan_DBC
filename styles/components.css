@@ -1,0 +1,745 @@
+/* ========================================
+   COMPONENTS — LUXURY UI
+   ======================================== */
+
+/* —— Pharaoh button system (in-card controls) —— */
+.btn,
+.utility-btn,
+.copy-btn,
+.contact-card__wa,
+.social-icon,
+.modal-close,
+.download-btn {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 12px 18px;
+  border-radius: var(--pharaoh-radius-btn);
+  font-family: var(--font-serif);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--pharaoh-border);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+  box-shadow: var(--pharaoh-shadow);
+}
+
+/* Inner cartouche frame */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: calc(var(--pharaoh-radius-btn) - 3px);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.btn i,
+.btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+  box-shadow: var(--pharaoh-inset-depth), 0 2px 6px var(--shadow-soft);
+}
+
+/* Royal gold — primary seal */
+.btn--gold {
+  background: linear-gradient(
+    180deg,
+    var(--pharaoh-gold-light) 0%,
+    var(--pharaoh-gold-mid) 48%,
+    var(--pharaoh-gold-dark) 100%
+  );
+  color: var(--pharaoh-brown-deep);
+  border-color: var(--pharaoh-border-strong);
+  box-shadow: var(--pharaoh-inset-highlight), var(--pharaoh-inset-depth), var(--pharaoh-shadow);
+}
+
+.btn--gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, 0.28) 50%, transparent 58%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  z-index: 0;
+}
+
+/* Papyrus tablet — secondary */
+.btn--outline {
+  background: linear-gradient(
+    180deg,
+    #faf3e0 0%,
+    var(--papyrus-cream) 45%,
+    #e5d4ad 100%
+  );
+  color: var(--pharaoh-brown);
+  border-color: rgba(200, 155, 91, 0.65);
+  box-shadow: var(--pharaoh-inset-highlight), var(--pharaoh-shadow);
+}
+
+.btn--nile {
+  background: linear-gradient(180deg, #2a6578 0%, var(--nile-blue) 55%, #163a48 100%);
+  color: var(--papyrus-cream);
+  border-color: rgba(212, 175, 55, 0.35);
+  box-shadow: var(--pharaoh-inset-highlight), var(--pharaoh-shadow);
+}
+
+.btn--whatsapp {
+  background: linear-gradient(180deg, #3dd977 0%, var(--whatsapp) 100%);
+  color: var(--white);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.btn--ghost {
+  background: linear-gradient(180deg, rgba(244, 231, 197, 0.5) 0%, transparent 100%);
+  color: var(--pharaoh-brown);
+  border-color: rgba(200, 155, 91, 0.4);
+  box-shadow: none;
+}
+
+.btn--ghost::after {
+  display: none;
+}
+
+.btn--sm {
+  min-height: 40px;
+  padding: 8px 14px;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+}
+
+.actions-grid .btn {
+  width: 100%;
+}
+
+.utility-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 12px 18px;
+  border-radius: var(--pharaoh-radius-btn);
+  font-family: var(--font-serif);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid var(--pharaoh-border);
+  transition: var(--transition-fast);
+  box-shadow: var(--pharaoh-shadow);
+}
+
+/* —— Contact cards —— */
+.contact-card {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-2);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  box-shadow: 0 4px 16px var(--shadow-soft);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.contact-card__main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius-sm);
+}
+
+.contact-card__main:focus-visible {
+  outline: 2px solid var(--antique-gold);
+  outline-offset: 2px;
+}
+
+.contact-card__icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--pharaoh-radius-btn);
+  font-size: 1.1rem;
+  border: 1px solid var(--pharaoh-border);
+  box-shadow: var(--pharaoh-inset-highlight), 0 2px 8px var(--shadow-soft);
+}
+
+.contact-card__icon--phone {
+  background: linear-gradient(180deg, rgba(31, 78, 95, 0.14) 0%, var(--nile-blue-soft) 100%);
+  color: var(--nile-blue);
+}
+
+.contact-card__icon--email {
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.2) 0%, rgba(200, 155, 91, 0.12) 100%);
+  color: var(--pharaoh-brown);
+}
+
+.contact-card__icon--web {
+  background: linear-gradient(180deg, rgba(200, 155, 91, 0.28) 0%, rgba(200, 155, 91, 0.1) 100%);
+  color: var(--pharaoh-brown);
+}
+
+.contact-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.contact-card__label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nile-blue);
+}
+
+.contact-card__value {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-link {
+  color: inherit;
+}
+
+.contact-card__tools {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+/* WhatsApp — green seal with gold cartouche ring */
+.contact-card__wa {
+  position: relative;
+  flex-shrink: 0;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--pharaoh-radius-btn);
+  border: 1px solid var(--pharaoh-border-strong);
+  background: linear-gradient(180deg, #3dd977 0%, var(--whatsapp) 55%, #1a9e4d 100%);
+  color: var(--white);
+  font-size: 1.15rem;
+  text-decoration: none;
+  box-shadow:
+    var(--pharaoh-inset-highlight),
+    0 0 0 1px rgba(92, 58, 33, 0.15),
+    0 4px 12px rgba(37, 211, 102, 0.25);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.contact-card__wa::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: calc(var(--pharaoh-radius-btn) - 3px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+.contact-card__wa:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.contact-card__wa:focus-visible {
+  outline: 2px solid var(--antique-gold);
+  outline-offset: 2px;
+}
+
+.contact-card__wa i {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Copy — miniature papyrus seal */
+.copy-btn,
+.contact-card__copy {
+  position: relative;
+  flex-shrink: 0;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--pharaoh-radius-btn);
+  border: 1px solid rgba(200, 155, 91, 0.55);
+  background: linear-gradient(180deg, #faf3e0 0%, var(--papyrus-cream) 50%, #e5d4ad 100%);
+  color: var(--pharaoh-brown);
+  cursor: pointer;
+  box-shadow: var(--pharaoh-inset-highlight), var(--pharaoh-shadow);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+}
+
+.copy-btn::after,
+.contact-card__copy::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: calc(var(--pharaoh-radius-btn) - 3px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  pointer-events: none;
+}
+
+.copy-btn:active,
+.contact-card__copy:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.copy-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.copy-btn i {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+  font-size: 0.9rem;
+}
+
+.copy-btn .fa-check {
+  color: var(--nile-blue);
+}
+
+/* —— Slogan CTA (pharaoh banner) —— */
+.slogan-banner,
+.adventure-slogan {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--pharaoh-radius-btn);
+  background: linear-gradient(135deg, var(--pharaoh-brown) 0%, var(--nile-blue) 100%);
+  border: 1px solid var(--pharaoh-border-strong);
+  box-shadow: var(--pharaoh-inset-highlight), 0 8px 24px var(--shadow-soft);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Full-banner cinematic shimmer (restored) */
+.slogan-shimmer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.14) 48%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0.14) 52%,
+    transparent 62%
+  );
+  transform: translateX(-100%);
+  animation: sloganShimmer 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.slogan-glyph {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--antique-gold);
+  opacity: 0.5;
+  pointer-events: none;
+  text-shadow: 0 1px 4px var(--shadow-deep);
+}
+
+.slogan-glyph--start {
+  left: var(--space-4);
+}
+
+.slogan-glyph--end {
+  right: var(--space-4);
+}
+
+.slogan-text {
+  position: relative;
+  z-index: 1;
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--papyrus-cream);
+  white-space: normal;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+
+/* —— Social cartouche buttons —— */
+.social-icon {
+  position: relative;
+  width: var(--social-icon-size);
+  height: var(--social-icon-size);
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--pharaoh-border);
+  background: radial-gradient(circle at 35% 28%, #faf3e0 0%, var(--papyrus-cream) 52%, #e5d4ad 100%);
+  color: var(--pharaoh-brown);
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: var(--pharaoh-inset-highlight), var(--pharaoh-shadow);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.social-icon::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  pointer-events: none;
+}
+
+.social-icon i {
+  position: relative;
+  z-index: 1;
+}
+
+.qr-icon {
+  background: linear-gradient(180deg, var(--sandstone) 0%, var(--pharaoh-brown) 48%, var(--nile-blue) 100%);
+  color: var(--antique-gold);
+  border-color: var(--pharaoh-border-strong);
+}
+
+/* —— Install banner —— */
+.install-banner {
+  position: fixed;
+  right: max(var(--space-3), env(safe-area-inset-right));
+  bottom: max(var(--space-3), env(safe-area-inset-bottom));
+  left: auto;
+  z-index: var(--z-install);
+  width: max-content;
+  max-width: min(300px, calc(100vw - var(--space-6)));
+  padding: var(--space-4);
+  background: var(--papyrus-cream);
+  border: 1px solid var(--antique-gold);
+  border-radius: var(--radius-md);
+  box-shadow:
+    0 16px 40px var(--shadow-deep),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  animation: installSlideIn 0.5s var(--ease-luxury);
+}
+
+.install-banner__header {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  margin-bottom: var(--space-3);
+}
+
+.install-banner__glyph {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--antique-gold);
+  filter: drop-shadow(0 2px 4px var(--shadow-soft));
+}
+
+.install-banner__text {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--pharaoh-brown);
+}
+
+.install-banner__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.install-banner__actions .btn {
+  width: 100%;
+}
+
+/* —— Toast —— */
+.app-toast {
+  position: fixed;
+  left: 50%;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  transform: translateX(-50%) translateY(12px);
+  opacity: 0;
+  pointer-events: none;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  background: var(--pharaoh-brown);
+  color: var(--papyrus-cream);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border: 1px solid var(--antique-gold-soft);
+  box-shadow: 0 12px 32px var(--shadow-deep);
+  z-index: var(--z-toast);
+  transition: opacity 0.3s var(--ease-luxury), transform 0.3s var(--ease-luxury);
+  max-width: calc(100vw - 32px);
+  text-align: center;
+}
+
+.app-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* —— QR Modal —— */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: rgba(20, 12, 6, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-luxury);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.qr-modal {
+  position: relative;
+  width: min(100%, 340px);
+  padding: var(--space-6) var(--space-5);
+  text-align: center;
+  background: var(--papyrus-cream);
+  border: 1px solid var(--antique-gold);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 64px var(--shadow-deep);
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.4s var(--ease-luxury);
+}
+
+.modal-overlay.active .qr-modal {
+  transform: translateY(0) scale(1);
+}
+
+.qr-modal__eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--nile-blue);
+  margin-bottom: var(--space-2);
+}
+
+.qr-modal h3 {
+  margin-bottom: var(--space-4);
+}
+
+.qr-modal__frame {
+  padding: var(--space-3);
+  margin: 0 auto var(--space-5);
+  background: var(--white);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 2px 8px var(--shadow-soft);
+  display: inline-block;
+}
+
+.modal-qr-image {
+  width: 200px;
+  height: 200px;
+  display: block;
+}
+
+.modal-close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--pharaoh-border);
+  background: linear-gradient(180deg, #faf3e0 0%, var(--papyrus-cream) 100%);
+  color: var(--pharaoh-brown);
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: var(--pharaoh-shadow);
+  transition: var(--transition-fast);
+}
+
+.download-btn {
+  width: 100%;
+}
+
+.download-btn::after {
+  border-radius: calc(var(--pharaoh-radius-btn) - 3px);
+}
+
+/* —— Showcase video modal —— */
+.video-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-modal) + 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: rgba(20, 12, 6, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-luxury);
+}
+
+.video-modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.video-modal,
+.video-modal-content {
+  position: relative;
+  width: min(100%, 400px);
+  max-height: calc(100dvh - var(--space-8));
+  overflow-y: auto;
+  padding: var(--space-6) var(--space-5) var(--space-5);
+  background: var(--papyrus-cream);
+  border: 1px solid var(--pharaoh-border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 64px var(--shadow-deep);
+  transform: none;
+  transition: opacity 0.35s var(--ease-luxury);
+}
+
+.video-modal-overlay.active .video-modal,
+.video-modal-overlay.active .video-modal-content {
+  transform: none;
+}
+
+.video-modal__eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--nile-blue);
+  margin-bottom: var(--space-2);
+  text-align: center;
+}
+
+.video-modal__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--pharaoh-brown);
+  text-align: center;
+  margin-bottom: var(--space-3);
+  line-height: 1.25;
+}
+
+.video-modal__caption {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: var(--space-4);
+}
+
+.video-container {
+  width: 100%;
+}
+
+.video-embed {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--pharaoh-brown-deep);
+  border: 1px solid var(--pharaoh-border);
+  box-shadow: inset 0 2px 10px var(--shadow-soft);
+}
+
+.video-embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@supports (aspect-ratio: 16 / 9) {
+  .video-embed {
+    padding-bottom: 0;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.video-modal__player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #000;
+  border-radius: var(--radius-md);
+}
+
+.video-modal__close {
+  z-index: 2;
+}
