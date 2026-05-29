@@ -1,5 +1,5 @@
 /**
- * EmailLinkManager — opens Gmail compose (app on mobile, web on desktop)
+ * EmailLinkManager — opens Gmail compose (native app on mobile, web on desktop)
  */
 
 class EmailLinkManager {
@@ -18,14 +18,39 @@ class EmailLinkManager {
     this.applyLinkFromData();
   }
 
+  static getPlatform() {
+    const ua = navigator.userAgent || '';
+    if (/android/i.test(ua)) return 'android';
+    if (/iPhone|iPad|iPod/i.test(ua)) return 'ios';
+    return 'desktop';
+  }
+
+  static isMobilePlatform() {
+    return EmailLinkManager.getPlatform() !== 'desktop';
+  }
+
   applyLinkFromData() {
     const data = this.cardLoader?.getData();
     if (!data?.contact?.email || !this.emailLink) return;
 
     const urls = this.buildComposeUrls(data);
-    this.emailLink.href = urls.web;
+    const platform = EmailLinkManager.getPlatform();
+
     this.emailLink.setAttribute('data-gmail-web', urls.web);
-    this.emailLink.setAttribute('data-gmail-app', urls.app);
+    this.emailLink.setAttribute('data-gmail-ios', urls.ios);
+    this.emailLink.setAttribute('data-gmail-android', urls.android);
+
+    if (platform === 'android') {
+      this.emailLink.href = urls.android;
+      this.emailLink.removeAttribute('target');
+    } else if (platform === 'ios') {
+      this.emailLink.href = urls.ios;
+      this.emailLink.removeAttribute('target');
+    } else {
+      this.emailLink.href = urls.web;
+      this.emailLink.setAttribute('target', '_blank');
+      this.emailLink.setAttribute('rel', 'noopener noreferrer');
+    }
 
     const label =
       data.labels?.emailAria ||
@@ -42,16 +67,23 @@ class EmailLinkManager {
     const webParams = new URLSearchParams({ view: 'cm', fs: '1', to });
     if (subject) webParams.set('su', subject);
     if (body) webParams.set('body', body);
+    const web = `https://mail.google.com/mail/?${webParams.toString()}`;
 
     const appParams = new URLSearchParams({ to });
     if (subject) appParams.set('subject', subject);
     if (body) appParams.set('body', body);
+    const appQuery = appParams.toString();
 
-    return {
-      web: `https://mail.google.com/mail/?${webParams.toString()}`,
-      app: `googlegmail://co?${appParams.toString()}`,
-      mailto: EmailLinkManager.buildMailtoUrl(to, subject, body)
-    };
+    const ios = `googlegmail:///co?${appQuery}`;
+    const iosAlt = `googlegmail://co?${appQuery}`;
+    const android = EmailLinkManager.buildAndroidIntentUrl(appQuery, web);
+
+    return { web, ios, iosAlt, android, app: iosAlt };
+  }
+
+  static buildAndroidIntentUrl(appQuery, webFallbackUrl) {
+    const fallback = encodeURIComponent(webFallbackUrl);
+    return `intent://co?${appQuery}#Intent;scheme=googlegmail;package=com.google.android.gm;S.browser_fallback_url=${fallback};end`;
   }
 
   buildComposeUrls(data) {
@@ -62,62 +94,27 @@ class EmailLinkManager {
     );
   }
 
-  static buildMailtoUrl(to, subject, body) {
-    const params = new URLSearchParams();
-    if (subject) params.set('subject', subject);
-    if (body) params.set('body', body);
-    const qs = params.toString();
-    return `mailto:${encodeURIComponent(to)}${qs ? `?${qs}` : ''}`;
-  }
-
-  static prefersGmailApp() {
-    const ua = navigator.userAgent || '';
-    const isMobileUa = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
-    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
-    const isNarrow = window.matchMedia('(max-width: 768px)').matches;
-    return isMobileUa || (isCoarsePointer && isNarrow);
-  }
-
   handleClick(event) {
     const data = this.cardLoader?.getData();
     const email = data?.contact?.email?.trim();
     if (!email) return;
 
-    event.preventDefault();
-
     const urls = this.buildComposeUrls(data);
+    const platform = EmailLinkManager.getPlatform();
 
-    if (EmailLinkManager.prefersGmailApp()) {
-      this.openGmailApp(urls.app, urls.web);
+    if (platform === 'desktop') {
+      event.preventDefault();
+      window.open(urls.web, '_blank', 'noopener,noreferrer');
       return;
     }
 
-    window.open(urls.web, '_blank', 'noopener,noreferrer');
-  }
+    /* Mobile: same-tab deep link — target="_blank" blocks Gmail app on many browsers */
+    event.preventDefault();
 
-  openGmailApp(appUrl, webUrl) {
-    let didLeave = false;
+    const appUrl = platform === 'android' ? urls.android : urls.ios;
 
-    const clearFallback = () => {
-      didLeave = true;
-    };
-
-    const fallbackTimer = window.setTimeout(() => {
-      if (!didLeave) {
-        window.location.assign(webUrl);
-      }
-    }, 1400);
-
-    window.addEventListener('pagehide', clearFallback, { once: true });
-    window.addEventListener('blur', clearFallback, { once: true });
-
-    window.location.href = appUrl;
-
-    window.setTimeout(() => {
-      window.removeEventListener('pagehide', clearFallback);
-      window.removeEventListener('blur', clearFallback);
-      window.clearTimeout(fallbackTimer);
-    }, 2000);
+    /* Programmatic navigation in the same tab (most reliable for intent / URL schemes) */
+    window.location.assign(appUrl);
   }
 
   reconfigure() {

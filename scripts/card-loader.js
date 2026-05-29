@@ -36,11 +36,28 @@ class CardLoader {
     this.setAttr('[data-card="phone-link"]', 'href', contact?.phoneE164 ? `tel:${contact.phoneE164}` : null);
     this.setText('[data-card="phone-display"]', contact?.phoneDisplay);
     this.setAttr('[data-card="whatsapp-link"]', 'href', contact?.whatsapp ? `https://wa.me/${contact.whatsapp}` : null);
-    if (contact?.email) {
+    if (contact?.email && typeof EmailLinkManager !== 'undefined') {
       const gmail = EmailLinkManager.buildComposeUrls(contact, owner, labels);
-      this.setAttr('[data-card="email-link"]', 'href', gmail.web);
-      this.setAttr('[data-card="email-link"]', 'data-gmail-web', gmail.web);
-      this.setAttr('[data-card="email-link"]', 'data-gmail-app', gmail.app);
+      const platform = EmailLinkManager.getPlatform();
+      const href =
+        platform === 'android'
+          ? gmail.android
+          : platform === 'ios'
+            ? gmail.ios
+            : gmail.web;
+      const link = document.querySelector('[data-card="email-link"]');
+      if (link) {
+        link.href = href;
+        link.dataset.gmailWeb = gmail.web;
+        link.dataset.gmailIos = gmail.ios;
+        link.dataset.gmailAndroid = gmail.android;
+        if (platform === 'desktop') {
+          link.setAttribute('target', '_blank');
+          link.setAttribute('rel', 'noopener noreferrer');
+        } else {
+          link.removeAttribute('target');
+        }
+      }
     }
     this.setText('[data-card="email-display"]', contact?.email);
     this.setAttr('[data-card="website-link"]', 'href', contact?.website);
