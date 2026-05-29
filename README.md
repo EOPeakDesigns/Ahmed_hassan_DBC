@@ -1,7 +1,5 @@
 # Ahmed Hassan — Tour Guide · Digital Business Card
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/YOUR_REPO)
-
 > **Luxury, mobile-first digital business card** for an Egyptian tour guide — save contact, share instantly, scan QR, watch a showcase video, and install as a PWA. Zero build step. Vanilla HTML, CSS & JS.
 
 ---
